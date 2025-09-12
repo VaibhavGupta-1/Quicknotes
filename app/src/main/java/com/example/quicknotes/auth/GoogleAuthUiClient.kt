@@ -12,6 +12,9 @@ import com.google.firebase.auth.ktx.auth // This import should now work
 import com.google.firebase.ktx.Firebase   // This import should now work
 import kotlinx.coroutines.tasks.await
 import java.util.concurrent.CancellationException
+import com.google.android.gms.common.api.Scope
+import com.google.android.gms.common.Scopes
+
 
 // Data class to hold user information
 data class UserData(
@@ -77,6 +80,18 @@ class GoogleAuthUiClient(
             profilePictureUrl = it.photoUrl?.toString()
         )
     }
+
+    // In file: auth/GoogleAuthUiClient.kt
+
+// ... (keep the rest of the file the same)
+
+    // In file: auth/GoogleAuthUiClient.kt
+
+// ... (keep the rest of the file the same, especially the imports)
+
+    // In file: auth/GoogleAuthUiClient.kt
+
+// ... (keep the rest of the file the same)
 
     private fun buildSignInRequest(): BeginSignInRequest {
         return BeginSignInRequest.builder()

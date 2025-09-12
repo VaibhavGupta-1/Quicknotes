@@ -1,3 +1,4 @@
+// In file: settings.gradle.kts
 pluginManagement {
     repositories {
         google()
@@ -15,4 +16,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "Quicknotes"
 include(":app")
- 
