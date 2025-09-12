@@ -25,11 +25,9 @@ import com.example.quicknotes.ui.screens.*
 import com.example.quicknotes.ui.theme.QuickNotesTheme
 import com.google.android.gms.auth.api.identity.Identity
 import kotlinx.coroutines.launch
-import com.example.quicknotes.ui.screens.LoginScreen
 
 class MainActivity : ComponentActivity() {
 
-    // Instantiate our Google Auth client
     private val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
             context = applicationContext,
@@ -49,16 +47,14 @@ class MainActivity : ComponentActivity() {
                     val authViewModel: AuthViewModel = viewModel()
                     val state by authViewModel.state.collectAsStateWithLifecycle()
 
-                    // This effect runs once when the app starts to check if a user is already signed in
                     LaunchedEffect(key1 = Unit) {
-                        if(googleAuthUiClient.getSignedInUser() != null) {
+                        if (googleAuthUiClient.getSignedInUser() != null) {
                             navController.navigate("mainApp") {
                                 popUpTo("auth") { inclusive = true }
                             }
                         }
                     }
 
-                    // The launcher that gets the result from the Google Sign-In pop-up
                     val launcher = rememberLauncherForActivityResult(
                         contract = ActivityResultContracts.StartIntentSenderForResult(),
                         onResult = { result ->
@@ -73,10 +69,13 @@ class MainActivity : ComponentActivity() {
                         }
                     )
 
-                    // Effect to handle navigation after a successful sign-in
                     LaunchedEffect(key1 = state.isSignInSuccessful) {
-                        if(state.isSignInSuccessful) {
-                            Toast.makeText(applicationContext, "Sign in successful", Toast.LENGTH_LONG).show()
+                        if (state.isSignInSuccessful) {
+                            Toast.makeText(
+                                applicationContext,
+                                "Sign in successful",
+                                Toast.LENGTH_LONG
+                            ).show()
                             navController.navigate("mainApp") {
                                 popUpTo("auth") { inclusive = true }
                             }
@@ -84,9 +83,7 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
-                    // Main Navigation Host
                     NavHost(navController = navController, startDestination = "auth") {
-                        // Authentication Graph (Login Screen)
                         composable("auth") {
                             LoginScreen(
                                 onSignInClick = {
@@ -101,7 +98,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
-                        // Main App Graph (Notes Screens)
+
                         composable("mainApp") {
                             val sampleNotes = listOf(
                                 Note(1, "Meeting Recap", "Discussed Q3 goals...", "10:30 AM"),
@@ -114,7 +111,11 @@ class MainActivity : ComponentActivity() {
                                 onSignOutClick = {
                                     lifecycleScope.launch {
                                         googleAuthUiClient.signOut()
-                                        Toast.makeText(applicationContext, "Signed out", Toast.LENGTH_LONG).show()
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "Signed out",
+                                            Toast.LENGTH_LONG
+                                        ).show()
                                         navController.navigate("auth") {
                                             popUpTo("mainApp") { inclusive = true }
                                         }
@@ -122,7 +123,6 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
-                        // Add composable for AddEditNoteScreen if needed
                     }
                 }
             }

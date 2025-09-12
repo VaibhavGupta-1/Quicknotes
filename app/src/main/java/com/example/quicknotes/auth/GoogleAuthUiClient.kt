@@ -8,8 +8,8 @@ import com.example.quicknotes.R
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.ktx.auth // This import should now work
+import com.google.firebase.ktx.Firebase   // This import should now work
 import kotlinx.coroutines.tasks.await
 import java.util.concurrent.CancellationException
 
@@ -24,9 +24,9 @@ class GoogleAuthUiClient(
     private val context: Context,
     private val oneTapClient: SignInClient
 ) {
+    // This line should now work correctly
     private val auth = Firebase.auth
 
-    // Function to build and return the intent sender for the Google Sign-In UI
     suspend fun signIn(): IntentSender? {
         val result = try {
             oneTapClient.beginSignIn(
@@ -40,7 +40,6 @@ class GoogleAuthUiClient(
         return result?.pendingIntent?.intentSender
     }
 
-    // Function to handle the result from the Google Sign-In activity
     suspend fun signInWithIntent(intent: Intent): UserData? {
         val credential = oneTapClient.getSignInCredentialFromIntent(intent)
         val googleIdToken = credential.googleIdToken
@@ -79,13 +78,12 @@ class GoogleAuthUiClient(
         )
     }
 
-    // Helper function to build the sign-in request
     private fun buildSignInRequest(): BeginSignInRequest {
         return BeginSignInRequest.builder()
             .setGoogleIdTokenRequestOptions(
                 BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                     .setSupported(true)
-                    .setServerClientId(context.getString(R.string.default_web_client_id)) // Get web client ID from strings.xml
+                    .setServerClientId(context.getString(R.string.default_web_client_id))
                     .setFilterByAuthorizedAccounts(false)
                     .build()
             )
