@@ -1,4 +1,3 @@
-// In file: data/NotesDatabase.kt
 package com.example.quicknotes.data
 
 import androidx.room.Database

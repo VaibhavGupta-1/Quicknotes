@@ -1,5 +1,4 @@
-// In file: NoteItem.kt
-package com.example.quicknotes.ui.screens // <-- Make sure this matches your project
+package com.example.quicknotes.ui.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*

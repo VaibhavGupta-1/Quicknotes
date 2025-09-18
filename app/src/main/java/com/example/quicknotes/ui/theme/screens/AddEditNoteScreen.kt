@@ -1,4 +1,3 @@
-// In file: ui/screens/AddEditNoteScreen.kt
 package com.example.quicknotes.ui.screens
 
 import androidx.compose.foundation.layout.*

@@ -1,4 +1,3 @@
-// In file: QuickNotesApp.kt
 package com.example.quicknotes
 
 import android.app.Application

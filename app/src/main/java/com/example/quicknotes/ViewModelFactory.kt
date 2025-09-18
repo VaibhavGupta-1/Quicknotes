@@ -1,4 +1,3 @@
-// In file: ViewModelFactory.kt
 package com.example.quicknotes
 
 import androidx.lifecycle.ViewModel
